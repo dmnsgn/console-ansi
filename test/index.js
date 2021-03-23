@@ -11,7 +11,7 @@ const separator = () => {
 };
 
 if (typeof process !== "undefined") {
-  console.log(`Terminal hasColors:`, process.stdout.hasColors());
+  console.log(`Terminal hasColors:`, process.stdout.hasColors?.());
 }
 // console.symbol = {};
 
