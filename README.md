@@ -3,12 +3,12 @@
 [![npm version](https://img.shields.io/npm/v/console-ansi)](https://www.npmjs.com/package/console-ansi)
 [![stability-stable](https://img.shields.io/badge/stability-stable-green.svg)](https://www.npmjs.com/package/console-ansi)
 [![npm minzipped size](https://img.shields.io/bundlephobia/minzip/console-ansi)](https://www.npmjs.com/package/console-ansi)
-[![dependencies](https://img.shields.io/david/dmnsgn/console-ansi)](https://github.com/dmnsgn/console-ansi/blob/master/package.json)
+[![dependencies](https://img.shields.io/david/dmnsgn/console-ansi)](https://github.com/dmnsgn/console-ansi/blob/main/package.json)
 [![types](https://img.shields.io/npm/types/console-ansi)](https://github.com/microsoft/TypeScript)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-fa6673.svg)](https://conventionalcommits.org)
 [![styled with prettier](https://img.shields.io/badge/styled_with-Prettier-f8bc45.svg?logo=prettier)](https://github.com/prettier/prettier)
 [![linted with eslint](https://img.shields.io/badge/linted_with-ES_Lint-4B32C3.svg?logo=eslint)](https://github.com/eslint/eslint)
-[![license](https://img.shields.io/github/license/dmnsgn/console-ansi)](https://github.com/dmnsgn/console-ansi/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/dmnsgn/console-ansi)](https://github.com/dmnsgn/console-ansi/blob/main/LICENSE)
 
 Easy console coloring and prefixing via Proxy object with ANSI strings.
 
@@ -86,7 +86,7 @@ console.symbol = {};
 
 Export a Proxy object to automatically style the console with ANSI strings.
 
-**Kind**: Exported constant  
+**Kind**: Exported constant
 **Properties**
 
 | Name     | Type                                                 | Default                               | Description                       |
@@ -103,7 +103,7 @@ Export a Proxy object to automatically style the console with ANSI strings.
 
 ### styles : <code>Object.&lt;string, ConsoleAnsiThemeAttributeArray&gt;</code> ⏏
 
-**Kind**: Exported constant  
+**Kind**: Exported constant
 **See**
 
 - [Wikipedia ANSI](<https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters>)
@@ -115,14 +115,14 @@ Export a Proxy object to automatically style the console with ANSI strings.
 
 Array for ANSI definition [start, end].
 
-**Kind**: global typedef  
+**Kind**: global typedef
 <a name="ConsoleAnsiTheme"></a>
 
 ## ConsoleAnsiTheme : <code>Object.&lt;string, ConsoleAnsiThemeAttributeArray&gt;</code> \| <code>Object.&lt;string, Array.&lt;ConsoleAnsiThemeAttributeArray&gt;&gt;</code>
 
 Theme object consisting of ANSI styles or Array of ANSI styles.
 
-**Kind**: global typedef  
+**Kind**: global typedef
 <a name="ConsoleAnsiSymbol"></a>
 
 ## ConsoleAnsiSymbol : <code>Object.&lt;string, string&gt;</code>
@@ -135,4 +135,4 @@ Map of unicode symbols to be prepended to certain console methods.
 
 ## License
 
-MIT. See [license file](https://github.com/dmnsgn/console-ansi/blob/master/LICENSE.md).
+MIT. See [license file](https://github.com/dmnsgn/console-ansi/blob/main/LICENSE.md).
