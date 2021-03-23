@@ -1,0 +1,39 @@
+{
+  "name": "console-ansi",
+  "version": "1.0.0",
+  "description": "Easy console coloring and prefixing via Proxy object with ANSI strings.",
+  "keywords": [
+    "console",
+    "ansi",
+    "colors",
+    "chalk",
+    "proxy",
+    "theme",
+    "prefix"
+  ],
+  "homepage": "https://github.com/dmnsgn/console-ansi",
+  "bugs": "https://github.com/dmnsgn/console-ansi/issues",
+  "repository": "dmnsgn/console-ansi",
+  "funding": [
+    {
+      "type": "individual",
+      "url": "https://paypal.me/dmnsgn"
+    },
+    {
+      "type": "individual",
+      "url": "https://commerce.coinbase.com/checkout/56cbdf28-e323-48d8-9c98-7019e72c97f3"
+    }
+  ],
+  "license": "MIT",
+  "author": "Damien Seguin (https://github.com/dmnsgn)",
+  "type": "module",
+  "main": "index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "test": "node ./test/index.js"
+  },
+  "engines": {
+    "node": ">=15.0.0",
+    "npm": ">=7.0.0"
+  }
+}
