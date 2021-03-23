@@ -86,7 +86,7 @@ console.symbol = {};
 
 Export a Proxy object to automatically style the console with ANSI strings.
 
-**Kind**: Exported constant
+**Kind**: Exported constant  
 **Properties**
 
 | Name     | Type                                                 | Default                               | Description                       |
@@ -103,7 +103,7 @@ Export a Proxy object to automatically style the console with ANSI strings.
 
 ### styles : <code>Object.&lt;string, ConsoleAnsiThemeAttributeArray&gt;</code> ⏏
 
-**Kind**: Exported constant
+**Kind**: Exported constant  
 **See**
 
 - [Wikipedia ANSI](<https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters>)
@@ -115,14 +115,14 @@ Export a Proxy object to automatically style the console with ANSI strings.
 
 Array for ANSI definition [start, end].
 
-**Kind**: global typedef
+**Kind**: global typedef  
 <a name="ConsoleAnsiTheme"></a>
 
 ## ConsoleAnsiTheme : <code>Object.&lt;string, ConsoleAnsiThemeAttributeArray&gt;</code> \| <code>Object.&lt;string, Array.&lt;ConsoleAnsiThemeAttributeArray&gt;&gt;</code>
 
 Theme object consisting of ANSI styles or Array of ANSI styles.
 
-**Kind**: global typedef
+**Kind**: global typedef  
 <a name="ConsoleAnsiSymbol"></a>
 
 ## ConsoleAnsiSymbol : <code>Object.&lt;string, string&gt;</code>
