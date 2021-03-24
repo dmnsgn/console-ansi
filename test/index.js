@@ -69,6 +69,17 @@ console.prefix = "[time]"; // Needs to be the same as time()
 console.timeLog("Test console time", "timeLog1", "timeLog2");
 console.timeEnd("Test console time");
 
+// Level
+separator();
+console.prefix = "[level]";
+console.level = "error";
+console.log("Test console level log hidden");
+console.info("Test console level info hidden");
+console.warn("Test console level warn hidden");
+console.error("Test console level error. Above log/info/warn not shown.");
+console.debug("Test console level not defined in levels");
+console.level = "log";
+
 // Empty prefix and symbol
 separator();
 console.prefix = "";
