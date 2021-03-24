@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [1.1.0](https://github.com/dmnsgn/console-ansi/compare/v1.0.4...v1.1.0) (2021-03-24)
+
+
+### Features
+
+* add log level ([0d79239](https://github.com/dmnsgn/console-ansi/commit/0d79239a955a89bb02f549d80a3f50145fa4de2b))
+
+
+
 ## [1.0.4](https://github.com/dmnsgn/console-ansi/compare/v1.0.3...v1.0.4) (2021-03-24)
 
 

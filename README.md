@@ -71,6 +71,12 @@ console.symbol = {};
 <dt><a href="#ConsoleAnsiTheme">ConsoleAnsiTheme</a> : <code>Object.&lt;string, ConsoleAnsiThemeAttributeArray&gt;</code> | <code>Object.&lt;string, Array.&lt;ConsoleAnsiThemeAttributeArray&gt;&gt;</code></dt>
 <dd><p>Theme object consisting of ANSI styles or Array of ANSI styles.</p>
 </dd>
+<dt><a href="#ConsoleAnsiLevel">ConsoleAnsiLevel</a> : <code>string</code></dt>
+<dd><p>Current log level. Can be any console method but levels property only defines log(1)/info(2)/warn(3)/error(4).</p>
+</dd>
+<dt><a href="#ConsoleAnsiLevels">ConsoleAnsiLevels</a> : <code>Object.&lt;ConsoleAnsiLevel, number&gt;</code></dt>
+<dd><p>Levels object consisting of console method as keys and numbered priority.</p>
+</dd>
 <dt><a href="#ConsoleAnsiSymbol">ConsoleAnsiSymbol</a> : <code>Object.&lt;string, string&gt;</code></dt>
 <dd><p>Map of unicode symbols to be prepended to certain console methods.</p>
 </dd>
@@ -89,11 +95,13 @@ Export a Proxy object to automatically style the console with ANSI strings.
 **Kind**: Exported constant  
 **Properties**
 
-| Name     | Type                                                 | Default                               | Description                       |
-| -------- | ---------------------------------------------------- | ------------------------------------- | --------------------------------- |
-| [prefix] | <code>string</code>                                  | <code>&quot;&#x60;&#x60;&quot;</code> | A string to prepend to every log. |
-| [theme]  | [<code>ConsoleAnsiTheme</code>](#ConsoleAnsiTheme)   |                                       |                                   |
-| [symbol] | [<code>ConsoleAnsiSymbol</code>](#ConsoleAnsiSymbol) |                                       |                                   |
+| Name     | Type                                                 | Default                                                                                             | Description                                                                        |
+| -------- | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| [prefix] | <code>string</code>                                  | <code>&quot;&#x60;&#x60;&quot;</code>                                                               | A string to prepend to every log.                                                  |
+| [theme]  | [<code>ConsoleAnsiTheme</code>](#ConsoleAnsiTheme)   |                                                                                                     | Color definition associated to console methods.                                    |
+| [level]  | [<code>ConsoleAnsiLevel</code>](#ConsoleAnsiLevel)   | <code>&quot;log&quot;</code>                                                                        | A minimum log level value. See ConsoleAnsiLevels.                                  |
+| [levels] | [<code>ConsoleAnsiLevels</code>](#ConsoleAnsiLevels) | <code>{ error: 5, warn: 4, info: 3, log: 2 }</code>                                                 | Numbered priority associated to console methods to match above for level property. |
+| [symbol] | [<code>ConsoleAnsiSymbol</code>](#ConsoleAnsiSymbol) | <code>{ log: &quot;✔&quot;, info: &quot;ℹ&quot;, warn: &quot;⚠&quot;, error: &quot;✖&quot; }</code> | Unicode symbols to prepend to defined console methods.                             |
 
 <a name="module_consoleAnsiStyles"></a>
 
@@ -121,6 +129,20 @@ Array for ANSI definition [start, end].
 ## ConsoleAnsiTheme : <code>Object.&lt;string, ConsoleAnsiThemeAttributeArray&gt;</code> \| <code>Object.&lt;string, Array.&lt;ConsoleAnsiThemeAttributeArray&gt;&gt;</code>
 
 Theme object consisting of ANSI styles or Array of ANSI styles.
+
+**Kind**: global typedef  
+<a name="ConsoleAnsiLevel"></a>
+
+## ConsoleAnsiLevel : <code>string</code>
+
+Current log level. Can be any console method but levels property only defines log(1)/info(2)/warn(3)/error(4).
+
+**Kind**: global typedef  
+<a name="ConsoleAnsiLevels"></a>
+
+## ConsoleAnsiLevels : <code>Object.&lt;ConsoleAnsiLevel, number&gt;</code>
+
+Levels object consisting of console method as keys and numbered priority.
 
 **Kind**: global typedef  
 <a name="ConsoleAnsiSymbol"></a>
