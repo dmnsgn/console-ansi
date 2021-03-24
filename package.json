@@ -1,6 +1,6 @@
 {
   "name": "console-ansi",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Easy console coloring and prefixing via Proxy object with ANSI strings.",
   "keywords": [
     "console",

@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.4](https://github.com/dmnsgn/console-ansi/compare/v1.0.3...v1.0.4) (2021-03-24)
+
+
+### Bug Fixes
+
+* only stringify labelled arguments ([834ef3b](https://github.com/dmnsgn/console-ansi/commit/834ef3b3549ecdc09f3fb08666affe1a4704d6be))
+
+
+
 ## [1.0.3](https://github.com/dmnsgn/console-ansi/compare/v1.0.2...v1.0.3) (2021-03-23)
 
 
