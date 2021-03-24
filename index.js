@@ -14,6 +14,13 @@ import styles from "./styles.js";
 const escape = (n) => `\u001B[${n}m`;
 
 /**
+ * Console methods that require special formatting
+ *
+ * @private
+ */
+const labelled = ["time", "timeLog", "timeEnd", "count", "countReset"];
+
+/**
  * Export a Proxy object to automatically style the console with ANSI strings.
  *
  * @alias module:consoleAnsi
@@ -41,7 +48,7 @@ const proxiedConsole = new Proxy(
       timeLog: styles.cyan,
       timeEnd: styles.cyan,
 
-      // Not supported
+      // Not supported, they already have some coloring
       // dir: // use second argument { colors: true }
       // table:
     },
@@ -60,8 +67,9 @@ const proxiedConsole = new Proxy(
         ? (...args) => {
             const symbolProp = obj.symbol[prop];
 
-            let themeProp = obj.theme[prop];
-            if (!Array.isArray(themeProp[0])) themeProp = [themeProp];
+            let themeProp = !Array.isArray(obj.theme[prop][0])
+              ? [obj.theme[prop]]
+              : obj.theme[prop];
 
             const attributes = themeProp.reduce(
               (str, style) => [
@@ -71,11 +79,13 @@ const proxiedConsole = new Proxy(
               ["", ""]
             );
 
+            const isLabelled = labelled.includes(prop);
+
             return console[prop](
-              `${attributes[0]}${symbolProp ? `${symbolProp} ` : ""}${
-                obj.prefix ? `${obj.prefix} ` : ""
-              }${args[0]}`,
-              ...args.slice(1),
+              `${attributes[0]}${[symbolProp, obj.prefix, isLabelled && args[0]]
+                .filter(Boolean)
+                .join(" ")}`,
+              ...args.slice(isLabelled ? 1 : 0),
               attributes[1]
             );
           }

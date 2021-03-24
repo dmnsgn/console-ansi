@@ -3,17 +3,15 @@ import styles from "../styles.js";
 
 const separator = () => {
   const prefix = console.prefix;
-  console.prefix = "";
-  console.debug(
-    "––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––"
-  );
+  console.prefix =
+    "––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––";
+  console.debug();
   console.prefix = prefix;
 };
 
 if (typeof process !== "undefined") {
   console.log(`Terminal hasColors:`, process.stdout.hasColors?.());
 }
-// console.symbol = {};
 
 // Start time...
 console.prefix = "[time]";
@@ -47,8 +45,8 @@ console.groupEnd("Test console group");
 
 // Use defaults
 separator();
-console.prefix = "";
-console.debug("[unsupported]");
+console.prefix = "[unsupported]";
+console.debug("");
 console.dir({ test: "dir" }, { colors: true });
 console.table([
   { test: 0, key: "A" },
@@ -59,6 +57,7 @@ console.table([
 separator();
 console.prefix = "[falsy-nullish]";
 console.log();
+console.log("");
 console.log(false);
 console.log(null);
 console.log(undefined);
@@ -69,6 +68,12 @@ separator();
 console.prefix = "[time]"; // Needs to be the same as time()
 console.timeLog("Test console time", "timeLog1", "timeLog2");
 console.timeEnd("Test console time");
+
+// Empty prefix and symbol
+separator();
+console.prefix = "";
+console.symbol = {};
+console.log({ test: 0, key: "A" }); // will add a space
 
 // Change theme
 separator();
