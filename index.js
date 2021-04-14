@@ -26,10 +26,10 @@ const labelled = ["time", "timeLog", "timeEnd", "count", "countReset"];
  * @alias module:consoleAnsi
  * @type {Proxy}
  * @property {string} [prefix=``] A string to prepend to every log.
- * @property {ConsoleAnsiTheme} [theme] Color definition associated to console methods.
- * @property {ConsoleAnsiLevel} [level="log"] A minimum log level value. See ConsoleAnsiLevels.
- * @property {ConsoleAnsiLevels} [levels={ error: 5, warn: 4, info: 3, log: 2 }] Numbered priority associated to console methods to match above for level property.
- * @property {ConsoleAnsiSymbol} [symbol={ log: "✔", info: "ℹ", warn: "⚠", error: "✖" }] Unicode symbols to prepend to defined console methods.
+ * @property {import("./types.js").ConsoleAnsiTheme} [theme] Color definition associated to console methods.
+ * @property {import("./types.js").ConsoleAnsiLevel} [level="log"] A minimum log level value. See ConsoleAnsiLevels.
+ * @property {import("./types.js").ConsoleAnsiLevels} [levels={ error: 5, warn: 4, info: 3, log: 2 }] Numbered priority associated to console methods to match above for level property.
+ * @property {import("./types.js").ConsoleAnsiSymbol} [symbol={ log: "✔", info: "ℹ", warn: "⚠", error: "✖" }] Unicode symbols to prepend to defined console methods.
  */
 const proxiedConsole = new Proxy(
   {
@@ -72,7 +72,7 @@ const proxiedConsole = new Proxy(
     get: (obj, prop) =>
       prop in obj
         ? obj[prop]
-        : !obj.levels.hasOwnProperty(prop) ||
+        : !obj.levels.hasOwnProperty(prop) || // eslint-disable-line no-prototype-builtins
           (obj.levels[obj.level] || 0) <= (obj.levels[prop] || 0)
         ? Object.keys(obj.theme).includes(prop)
           ? (...args) => {

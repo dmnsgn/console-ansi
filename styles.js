@@ -4,7 +4,7 @@
 
 /**
  * @alias module:consoleAnsiStyles
- * @type {Object.<string, ConsoleAnsiThemeAttributeArray>}
+ * @type {Object.<string, import("./types.js").ConsoleAnsiThemeAttributeArray>}
  * @see [Wikipedia ANSI]{@link https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters}
  * @see [Node.js util]{@link https://nodejs.org/api/util.html#util_customizing_util_inspect_colors}
  */
