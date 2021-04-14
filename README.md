@@ -65,6 +65,8 @@ console.symbol = {};
 ## Typedefs
 
 <dl>
+<dt><a href="#ConsoleAnsi">ConsoleAnsi</a> : <code>Object</code></dt>
+<dd></dd>
 <dt><a href="#ConsoleAnsiThemeAttributeArray">ConsoleAnsiThemeAttributeArray</a> : <code>Array.&lt;number&gt;</code></dt>
 <dd><p>Array for ANSI definition [start, end].</p>
 </dd>
@@ -88,21 +90,11 @@ console.symbol = {};
 
 <a name="exp_module_consoleAnsi--proxiedConsole"></a>
 
-### proxiedConsole : <code>Proxy</code> ⏏
+### proxiedConsole : [<code>ConsoleAnsi</code>](#ConsoleAnsi) ⏏
 
 Export a Proxy object to automatically style the console with ANSI strings.
 
 **Kind**: Exported constant  
-**Properties**
-
-| Name     | Type                                                 | Default                                                                                             | Description                                                                        |
-| -------- | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| [prefix] | <code>string</code>                                  | <code>&quot;&#x60;&#x60;&quot;</code>                                                               | A string to prepend to every log.                                                  |
-| [theme]  | [<code>ConsoleAnsiTheme</code>](#ConsoleAnsiTheme)   |                                                                                                     | Color definition associated to console methods.                                    |
-| [level]  | [<code>ConsoleAnsiLevel</code>](#ConsoleAnsiLevel)   | <code>&quot;log&quot;</code>                                                                        | A minimum log level value. See ConsoleAnsiLevels.                                  |
-| [levels] | [<code>ConsoleAnsiLevels</code>](#ConsoleAnsiLevels) | <code>{ error: 5, warn: 4, info: 3, log: 2 }</code>                                                 | Numbered priority associated to console methods to match above for level property. |
-| [symbol] | [<code>ConsoleAnsiSymbol</code>](#ConsoleAnsiSymbol) | <code>{ log: &quot;✔&quot;, info: &quot;ℹ&quot;, warn: &quot;⚠&quot;, error: &quot;✖&quot; }</code> | Unicode symbols to prepend to defined console methods.                             |
-
 <a name="module_consoleAnsiStyles"></a>
 
 ## consoleAnsiStyles
@@ -116,6 +108,21 @@ Export a Proxy object to automatically style the console with ANSI strings.
 
 - [Wikipedia ANSI](<https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters>)
 - [Node.js util](https://nodejs.org/api/util.html#util_customizing_util_inspect_colors)
+
+<a name="ConsoleAnsi"></a>
+
+## ConsoleAnsi : <code>Object</code>
+
+**Kind**: global typedef  
+**Properties**
+
+| Name     | Type                                                 | Default                                                                                             | Description                                                                        |
+| -------- | ---------------------------------------------------- | --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| [prefix] | <code>string</code>                                  | <code>&quot;&#x60;&#x60;&quot;</code>                                                               | A string to prepend to every log.                                                  |
+| [theme]  | [<code>ConsoleAnsiTheme</code>](#ConsoleAnsiTheme)   |                                                                                                     | Color definition associated to console methods.                                    |
+| [level]  | [<code>ConsoleAnsiLevel</code>](#ConsoleAnsiLevel)   | <code>&quot;log&quot;</code>                                                                        | A minimum log level value. See ConsoleAnsiLevels.                                  |
+| [levels] | [<code>ConsoleAnsiLevels</code>](#ConsoleAnsiLevels) | <code>{ error: 5, warn: 4, info: 3, log: 2 }</code>                                                 | Numbered priority associated to console methods to match above for level property. |
+| [symbol] | [<code>ConsoleAnsiSymbol</code>](#ConsoleAnsiSymbol) | <code>{ log: &quot;✔&quot;, info: &quot;ℹ&quot;, warn: &quot;⚠&quot;, error: &quot;✖&quot; }</code> | Unicode symbols to prepend to defined console methods.                             |
 
 <a name="ConsoleAnsiThemeAttributeArray"></a>
 
