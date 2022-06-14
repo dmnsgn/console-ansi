@@ -88,13 +88,25 @@ console.symbol = {};
 
 ## consoleAnsi
 
+- [consoleAnsi](#module_consoleAnsi)
+  - [proxiedConsole](#exp_module_consoleAnsi--proxiedConsole) : [<code>ConsoleAnsi</code>](#ConsoleAnsi) ⏏
+    - [~noColor](#module_consoleAnsi--proxiedConsole..noColor)
+
 <a name="exp_module_consoleAnsi--proxiedConsole"></a>
 
 ### proxiedConsole : [<code>ConsoleAnsi</code>](#ConsoleAnsi) ⏏
 
 Export a Proxy object to automatically style the console with ANSI strings.
 
-**Kind**: Exported constant  
+**Kind**: Exported constant
+<a name="module_consoleAnsi--proxiedConsole..noColor"></a>
+
+#### proxiedConsole~noColor
+
+Check for the presence of a NO_COLOR environment variable that prevents the addition of ANSI color.
+
+**Kind**: inner constant of [<code>proxiedConsole</code>](#exp_module_consoleAnsi--proxiedConsole)
+**See**: [no-color.org](https://no-color.org/)
 <a name="module_consoleAnsiStyles"></a>
 
 ## consoleAnsiStyles
@@ -103,7 +115,7 @@ Export a Proxy object to automatically style the console with ANSI strings.
 
 ### styles : <code>Object.&lt;string, ConsoleAnsiThemeAttributeArray&gt;</code> ⏏
 
-**Kind**: Exported constant  
+**Kind**: Exported constant
 **See**
 
 - [Wikipedia ANSI](<https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters>)
@@ -113,7 +125,7 @@ Export a Proxy object to automatically style the console with ANSI strings.
 
 ## ConsoleAnsi : <code>Object</code>
 
-**Kind**: global typedef  
+**Kind**: global typedef
 **Properties**
 
 | Name     | Type                                                 | Default                                                                                             | Description                                                                        |
@@ -130,28 +142,28 @@ Export a Proxy object to automatically style the console with ANSI strings.
 
 Array for ANSI definition [start, end].
 
-**Kind**: global typedef  
+**Kind**: global typedef
 <a name="ConsoleAnsiTheme"></a>
 
 ## ConsoleAnsiTheme : <code>Object.&lt;string, ConsoleAnsiThemeAttributeArray&gt;</code> \| <code>Object.&lt;string, Array.&lt;ConsoleAnsiThemeAttributeArray&gt;&gt;</code>
 
 Theme object consisting of ANSI styles or Array of ANSI styles.
 
-**Kind**: global typedef  
+**Kind**: global typedef
 <a name="ConsoleAnsiLevel"></a>
 
 ## ConsoleAnsiLevel : <code>string</code>
 
 Current log level. Can be any console method but levels property only defines log(1)/info(2)/warn(3)/error(4).
 
-**Kind**: global typedef  
+**Kind**: global typedef
 <a name="ConsoleAnsiLevels"></a>
 
 ## ConsoleAnsiLevels : <code>Object.&lt;ConsoleAnsiLevel, number&gt;</code>
 
 Levels object consisting of console method as keys and numbered priority.
 
-**Kind**: global typedef  
+**Kind**: global typedef
 <a name="ConsoleAnsiSymbol"></a>
 
 ## ConsoleAnsiSymbol : <code>Object.&lt;string, string&gt;</code>

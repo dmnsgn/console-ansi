@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [1.3.0](https://github.com/dmnsgn/console-ansi/compare/v1.2.0...v1.3.0) (2022-06-14)
+
+
+### Bug Fixes
+
+* remove end sequence in browser ([d575954](https://github.com/dmnsgn/console-ansi/commit/d575954f3e7f5041bc9a459b8b198da02112e1e9))
+
+
+### Features
+
+* add support for NO_COLOR ([14024c1](https://github.com/dmnsgn/console-ansi/commit/14024c12735b2a09c8eaaf42a5f8f4fe18d48469))
+
+
+
 # [1.2.0](https://github.com/dmnsgn/console-ansi/compare/v1.1.2...v1.2.0) (2021-09-10)
 
 
