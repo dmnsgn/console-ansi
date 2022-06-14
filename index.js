@@ -4,6 +4,17 @@
 
 import styles from "./styles.js";
 
+const isNode = typeof process !== "undefined";
+const { env = {}, argv = [] } = isNode ? process : {};
+
+/**
+ * Check for the presence of a NO_COLOR environment variable that prevents the addition of ANSI color.
+ * @see [no-color.org]{@link https://no-color.org/}
+ */
+const noColor =
+  "NO_COLOR" in env ||
+  ["--no-color", "--color=false"].some((arg) => argv.includes(arg));
+
 /**
  * Escape number for ANSI sequence
  *
@@ -73,7 +84,9 @@ const proxiedConsole = new Proxy(
           ? (...args) => {
               const symbolProp = obj.symbol[prop];
 
-              let themeProp = !Array.isArray(obj.theme[prop][0])
+              let themeProp = noColor
+                ? []
+                : !Array.isArray(obj.theme[prop][0])
                 ? [obj.theme[prop]]
                 : obj.theme[prop];
 
