@@ -93,7 +93,7 @@ const proxiedConsole = new Proxy(
               const attributes = themeProp.reduce(
                 (str, style) => [
                   `${str[0]}${escape(style[0])}`,
-                  `${str[1]}${escape(style[1])}`,
+                  `${str[1]}${isNode ? escape(style[1]) : ""}`,
                 ],
                 ["", ""]
               );
