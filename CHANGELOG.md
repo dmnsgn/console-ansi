@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [2.0.0](https://github.com/dmnsgn/console-ansi/compare/v1.3.0...v2.0.0) (2023-07-27)
+
+
+### Features
+
+* add getConsole + expose noColor as an option ([cc57f77](https://github.com/dmnsgn/console-ansi/commit/cc57f773ed1c9d5da8d3ebe57807697f27fd7e93))
+
+
+### BREAKING CHANGES
+
+* change exports and update engines
+
+
+
 # [1.3.0](https://github.com/dmnsgn/console-ansi/compare/v1.2.0...v1.3.0) (2022-06-14)
 
 
