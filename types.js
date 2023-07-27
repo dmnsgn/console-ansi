@@ -1,10 +1,11 @@
 /**
- * @typedef {Object} ConsoleAnsi
- * @property {string} [prefix=``] A string to prepend to every log.
- * @property {import("./types.js").ConsoleAnsiTheme} [theme] Color definition associated to console methods.
- * @property {import("./types.js").ConsoleAnsiLevel} [level="log"] A minimum log level value. See ConsoleAnsiLevels.
- * @property {import("./types.js").ConsoleAnsiLevels} [levels={ error: 5, warn: 4, info: 3, log: 2 }] Numbered priority associated to console methods to match above for level property.
- * @property {import("./types.js").ConsoleAnsiSymbol} [symbol={ log: "✔", info: "ℹ", warn: "⚠", error: "✖" }] Unicode symbols to prepend to defined console methods.
+ * @typedef {object} ConsoleAnsi
+ * @property {string} [prefix=""] A string to prepend to every log.
+ * @property {ConsoleAnsiTheme} [theme] Color definition associated to console methods.
+ * @property {ConsoleAnsiLevel} [level="log"] A minimum log level value. See ConsoleAnsiLevels.
+ * @property {ConsoleAnsiLevels} [levels={ error: 5, warn: 4, info: 3, log: 2 }] Numbered priority associated to console methods to match above for level property.
+ * @property {ConsoleAnsiSymbol} [symbol={ log: "✔", info: "ℹ", warn: "⚠", error: "✖" }] Unicode symbols to prepend to defined console methods.
+ * @property {boolean} [noColor=false] Disable color ansi sequence.
  */
 
 /**

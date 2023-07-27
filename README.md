@@ -10,7 +10,7 @@
 [![linted with eslint](https://img.shields.io/badge/linted_with-ES_Lint-4B32C3.svg?logo=eslint)](https://github.com/eslint/eslint)
 [![license](https://img.shields.io/github/license/dmnsgn/console-ansi)](https://github.com/dmnsgn/console-ansi/blob/main/LICENSE.md)
 
-Easy console coloring and prefixing via Proxy object with ANSI strings.
+Easy console coloring and prefixing via Proxy object with ANSI strings. Works in Node.js and in browsers that support ANSI strings.
 
 [![paypal](https://img.shields.io/badge/donate-paypal-informational?logo=paypal)](https://paypal.me/dmnsgn)
 [![coinbase](https://img.shields.io/badge/donate-coinbase-informational?logo=coinbase)](https://commerce.coinbase.com/checkout/56cbdf28-e323-48d8-9c98-7019e72c97f3)
@@ -27,8 +27,7 @@ npm install console-ansi
 ## Usage
 
 ```js
-import console from "console-ansi";
-import styles from "console-ansi/styles.js";
+import console, { styles } from "console-ansi";
 
 // Set prefix
 console.prefix = "[test]";

@@ -1,5 +1,10 @@
-import console from "../index.js";
-import styles from "../styles.js";
+import console, { styles, getConsole } from "../index.js";
+
+const isSafari =
+  /^((?!chrome|android).)*safari/i.test(globalThis.navigator?.userAgent) ===
+  true;
+
+console.noColor = isSafari;
 
 const separator = () => {
   const prefix = console.prefix;
@@ -89,7 +94,12 @@ console.log({ test: 0, key: "A" }); // will add a space
 // Change theme
 separator();
 console.prefix = "[custom-theme]";
-console.theme.log = styles.bgBlack;
+if (console.theme) console.theme.log = styles.bgBlack;
 console.log("Test change theme log bg black");
-console.theme.log = [styles.bgRed, styles.black, styles.underline];
+if (console.theme)
+  console.theme.log = [styles.bgRed, styles.black, styles.underline];
 console.log("Test change theme log bg red, color black with underline");
+
+// Instantiate
+const logger = getConsole({ prefix: "[instance]" });
+logger.log("Test instance");
