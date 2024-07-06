@@ -27,14 +27,20 @@
   "license": "MIT",
   "author": "Damien Seguin (https://github.com/dmnsgn)",
   "type": "module",
-  "exports": "./index.js",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "default": "./index.js"
+    }
+  },
   "main": "index.js",
   "types": "types/index.d.ts",
   "scripts": {
     "test": "node ./test/index.js"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=8.6.0"
+    "node": ">=22.0.0",
+    "npm": ">=10.5.1",
+    "snowdev": ">=2.2.x"
   }
 }
