@@ -76,41 +76,41 @@ const getConsole = (options) =>
         prop in obj
           ? obj[prop]
           : !obj.levels.hasOwnProperty(prop) || // eslint-disable-line no-prototype-builtins
-            (obj.levels[obj.level] || 0) <= (obj.levels[prop] || 0)
-          ? Object.keys(obj.theme).includes(prop)
-            ? (...args) => {
-                const symbolProp = obj.symbol[prop];
+              (obj.levels[obj.level] || 0) <= (obj.levels[prop] || 0)
+            ? Object.keys(obj.theme).includes(prop)
+              ? (...args) => {
+                  const symbolProp = obj.symbol[prop];
 
-                let themeProp = obj.noColor
-                  ? []
-                  : !Array.isArray(obj.theme[prop][0])
-                  ? [obj.theme[prop]]
-                  : obj.theme[prop];
+                  let themeProp = obj.noColor
+                    ? []
+                    : !Array.isArray(obj.theme[prop][0])
+                      ? [obj.theme[prop]]
+                      : obj.theme[prop];
 
-                const attributes = themeProp.reduce(
-                  (str, style) => [
-                    `${str[0]}${escape(style[0])}`,
-                    `${str[1]}${isNode ? escape(style[1]) : ""}`,
-                  ],
-                  ["", ""],
-                );
+                  const attributes = themeProp.reduce(
+                    (str, style) => [
+                      `${str[0]}${escape(style[0])}`,
+                      `${str[1]}${isNode ? escape(style[1]) : ""}`,
+                    ],
+                    ["", ""],
+                  );
 
-                const isLabelled = labelled.includes(prop);
+                  const isLabelled = labelled.includes(prop);
 
-                return console[prop](
-                  `${attributes[0]}${[
-                    symbolProp,
-                    obj.prefix,
-                    isLabelled && args[0],
-                  ]
-                    .filter(Boolean)
-                    .join(" ")}`,
-                  ...(args.slice(isLabelled ? 1 : 0) || []),
-                  attributes[1],
-                );
-              }
-            : console[prop]
-          : () => {},
+                  return console[prop](
+                    `${attributes[0]}${[
+                      symbolProp,
+                      obj.prefix,
+                      isLabelled && args[0],
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}`,
+                    ...(args.slice(isLabelled ? 1 : 0) || []),
+                    attributes[1],
+                  );
+                }
+              : console[prop]
+            : () => {},
     },
   );
 
@@ -137,3 +137,5 @@ export {
  * @type {import("./types.js").ConsoleAnsi}
  */
 export default getConsole();
+
+export * from "./types.js";
