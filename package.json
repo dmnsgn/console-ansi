@@ -1,6 +1,6 @@
 {
   "name": "console-ansi",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Easy console coloring and prefixing via Proxy object with ANSI strings. Works in Node.js and in browsers that support ANSI strings.",
   "keywords": [
     "console",
@@ -13,7 +13,10 @@
   ],
   "homepage": "https://github.com/dmnsgn/console-ansi",
   "bugs": "https://github.com/dmnsgn/console-ansi/issues",
-  "repository": "dmnsgn/console-ansi",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmnsgn/console-ansi.git"
+  },
   "funding": [
     {
       "type": "individual",
