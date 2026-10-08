@@ -2,7 +2,7 @@
 
 import styles from "./styles.js";
 
-const isNode = typeof process !== "undefined";
+const isNode = typeof globalThis.process?.versions?.node === "string";
 const { env = {}, argv = [] } = isNode ? process : {};
 
 /**
@@ -46,7 +46,7 @@ const getConsole = (options) =>
     {
       prefix: "",
       theme: {
-        debug: styles.white,
+        debug: styles.dim,
         log: styles.green,
         info: styles.blue,
         warn: styles.yellow,
@@ -54,7 +54,7 @@ const getConsole = (options) =>
         trace: styles.blue,
         assert: styles.red,
 
-        count: styles.white,
+        count: styles.dim,
         group: styles.gray,
         groupCollapsed: styles.gray,
         groupEnd: styles.gray,
