@@ -6,14 +6,13 @@ const isNode = typeof process !== "undefined";
 const { env = {}, argv = [] } = isNode ? process : {};
 
 /**
- * Check for the presence of a NO_COLOR environment variable that prevents the
- * addition of ANSI color.
+ * Disable ANSI color when NO_COLOR is set and non-empty.
  *
  * @private
  * @see [no-color.org]{@link https://no-color.org/}
  */
 const noColor =
-  "NO_COLOR" in env ||
+  Boolean(env.NO_COLOR) ||
   ["--no-color", "--color=false"].some((arg) => argv.includes(arg));
 
 /**
