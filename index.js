@@ -73,12 +73,15 @@ const write = (obj, method, args) => {
   );
 };
 
-const getConsole = (options) => {
+const getConsole = ({ theme, levels, symbol, ...options } = {}) => {
   const methods = new Map();
 
   return new Proxy(
     {
       prefix: "",
+      level: "log",
+      noColor,
+      ...options,
       theme: {
         debug: styles.dim,
         log: styles.green,
@@ -97,14 +100,9 @@ const getConsole = (options) => {
         // Not supported, they already have some coloring
         // dir: // use second argument { colors: true }
         // table:
+        ...theme,
       },
-      levels: {
-        error: 5,
-        warn: 4,
-        info: 3,
-        log: 2,
-      },
-      level: "log",
+      levels: { error: 5, warn: 4, info: 3, log: 2, ...levels },
       symbol: {
         // debug: "◆",
         log: "✔",
@@ -117,9 +115,8 @@ const getConsole = (options) => {
         group: "▼",
         groupCollapsed: "►",
         time: "◷",
+        ...symbol,
       },
-      noColor,
-      ...options,
     },
     {
       get(obj, prop) {
