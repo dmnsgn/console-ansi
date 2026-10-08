@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+# [3.0.0](https://github.com/dmnsgn/console-ansi/compare/v2.0.1...v3.0.0) (2026-10-08)
+
+### Bug Fixes
+
+* ignore empty NO_COLOR as per no-color.org ([2f2e68e](https://github.com/dmnsgn/console-ansi/commit/2f2e68ed3e3018bb584defcf7cafe052c75d37db))
+* keep falsy labels and default missing labels as native console ([656116a](https://github.com/dmnsgn/console-ansi/commit/656116a713e5f1569c7ee07092dc1a91a9090e53))
+* merge theme, levels and symbol options with defaults ([f42e3c7](https://github.com/dmnsgn/console-ansi/commit/f42e3c7fe158fcf117d0dc0d168d0764830ac37b))
+* support format specifiers and remove trailing space ([ede7c5f](https://github.com/dmnsgn/console-ansi/commit/ede7c5fdb82f14f483f57f63f6e16965a2ef9248))
+
+### Features
+
+* add debug and trace levels ([bb5c455](https://github.com/dmnsgn/console-ansi/commit/bb5c4553c2813be16873e326faeae00a52342a4a))
+* add timestamps option ([f737821](https://github.com/dmnsgn/console-ansi/commit/f737821979effd4f6cdea4ddedd2639a73cddd33))
+* freeze styles + dim debug and count ([170049a](https://github.com/dmnsgn/console-ansi/commit/170049afcc7780bc3895f2bca30eb670214ca020))
+* share labelled methods theme and symbol + add assert, groupCollapsed and default symbols ([9c26541](https://github.com/dmnsgn/console-ansi/commit/9c2654118371b661a4745aa1ed9de532141f0a34))
+* style non-Chromium browsers console with CSS ([23893bb](https://github.com/dmnsgn/console-ansi/commit/23893bb741709d154f990dc16066799e9f2fbf7b))
+
+### BREAKING CHANGES
+
+* default level is now "debug" so debug and trace show by default
+* theme.countReset/timeLog/timeEnd no longer read
+
 ## [2.0.1](https://github.com/dmnsgn/console-ansi/compare/v2.0.0...v2.0.1) (2024-07-06)
 
 

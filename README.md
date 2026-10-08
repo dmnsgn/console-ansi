@@ -63,22 +63,41 @@ console.symbol = {};
 
 <dl>
 <dt><a href="#ConsoleAnsi">ConsoleAnsi</a> : <code>object</code></dt>
-<dd></dd>
-<dt><a href="#ConsoleAnsiThemeAttributeArray">ConsoleAnsiThemeAttributeArray</a> : <code>Array.&lt;number&gt;</code></dt>
-<dd><p>Array for ANSI definition [start, end].</p>
+<dd><p>Labelled methods (<code>count</code>/<code>countReset</code>, <code>time</code>/<code>timeLog</code>/<code>timeEnd</code>) use the
+<code>count</code> and <code>time</code> theme and symbol. Their styled output is the native label
+key: keep <code>prefix</code>, <code>theme</code>, <code>symbol</code> and <code>noColor</code> unchanged between related
+calls.</p>
+</dd>
+<dt><a href="#ConsoleAnsiThemeAttribute">ConsoleAnsiThemeAttribute</a> : <code>number</code> | <code>string</code></dt>
+<dd><p>ANSI code or CSS
+  declaration.</p>
+</dd>
+<dt><a href="#ConsoleAnsiThemeAttributeArray">ConsoleAnsiThemeAttributeArray</a> : <code><a href="#ConsoleAnsiThemeAttribute">Array.&lt;ConsoleAnsiThemeAttribute&gt;</a></code></dt>
+<dd><p>Array
+  for ANSI definition [start, end] and optional CSS declaration for
+  browsers.</p>
 </dd>
 <dt><a href="#ConsoleAnsiTheme">ConsoleAnsiTheme</a> : <code>Object.&lt;string, ConsoleAnsiThemeAttributeArray&gt;</code> | <code>Object.&lt;string, Array.&lt;ConsoleAnsiThemeAttributeArray&gt;&gt;</code></dt>
 <dd><p>Theme object consisting of ANSI styles or Array of ANSI styles.</p>
 </dd>
 <dt><a href="#ConsoleAnsiLevel">ConsoleAnsiLevel</a> : <code>string</code></dt>
-<dd><p>Current log level. Can be any console method but levels property only defines log(1)/info(2)/warn(3)/error(4).</p>
+<dd><p>Current log level. Methods missing from
+  levels are always shown.</p>
 </dd>
 <dt><a href="#ConsoleAnsiLevels">ConsoleAnsiLevels</a> : <code>Object.&lt;ConsoleAnsiLevel, number&gt;</code></dt>
-<dd><p>Levels object consisting of console method as keys and numbered priority.</p>
+<dd><p>Levels object
+  consisting of console method as keys and numbered priority.</p>
 </dd>
 <dt><a href="#ConsoleAnsiSymbol">ConsoleAnsiSymbol</a> : <code>Object.&lt;string, string&gt;</code></dt>
-<dd><p>Map of unicode symbols to be prepended to certain console methods.</p>
+<dd><p>Map of unicode symbols to
+  be prepended to certain console methods.</p>
 </dd>
+<dt><a href="#ConsoleAnsiPalette">ConsoleAnsiPalette</a> : <code>Object.&lt;string, string&gt;</code></dt>
+<dd><p>Map of color names to
+  CSS colors.</p>
+</dd>
+<dt><a href="#ConsoleAnsiPalettes">ConsoleAnsiPalettes</a> : <code>object</code></dt>
+<dd></dd>
 </dl>
 
 <a name="module_console-ansi"></a>
@@ -87,6 +106,7 @@ console.symbol = {};
 
 - [console-ansi](#module_console-ansi)
   - [.styles](#module_console-ansi.styles) : [<code>ConsoleAnsiTheme</code>](#ConsoleAnsiTheme)
+  - [.palettes](#module_console-ansi.palettes) : [<code>ConsoleAnsiPalettes</code>](#ConsoleAnsiPalettes)
   - [.default](#module_console-ansi.default) : [<code>ConsoleAnsi</code>](#ConsoleAnsi)
   - [.getConsole(options)](#module_console-ansi.getConsole) ⇒ [<code>ConsoleAnsi</code>](#ConsoleAnsi)
 
@@ -102,18 +122,28 @@ Basic ANSI escape codes map
 - [Wikipedia ANSI](<https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters>)
 - [Node.js util](https://nodejs.org/api/util.html#util_customizing_util_inspect_colors)
 
+<a name="module_console-ansi.palettes"></a>
+
+### console-ansi.palettes : [<code>ConsoleAnsiPalettes</code>](#ConsoleAnsiPalettes)
+
+Chrome DevTools ANSI color palettes used for CSS styling in browsers
+
+**Kind**: static property of [<code>console-ansi</code>](#module_console-ansi)
+**See**: [Chrome DevTools](https://developer.chrome.com/docs/devtools/console/format-style)
 <a name="module_console-ansi.default"></a>
 
 ### console-ansi.default : [<code>ConsoleAnsi</code>](#ConsoleAnsi)
 
-Export a Proxy object to automatically style the console with ANSI strings.
+Export a Proxy object to automatically style the console with ANSI strings in
+Node.js and CSS in browsers.
 
 **Kind**: static property of [<code>console-ansi</code>](#module_console-ansi)
 <a name="module_console-ansi.getConsole"></a>
 
 ### console-ansi.getConsole(options) ⇒ [<code>ConsoleAnsi</code>](#ConsoleAnsi)
 
-Get an instance of the Proxy-ed console. Useful if you need different prefixes for instance.
+Get an instance of the Proxy-ed console. Useful if you need different
+prefixes for instance.
 
 **Kind**: static method of [<code>console-ansi</code>](#module_console-ansi)
 
@@ -125,23 +155,39 @@ Get an instance of the Proxy-ed console. Useful if you need different prefixes f
 
 ## ConsoleAnsi : <code>object</code>
 
+Labelled methods (`count`/`countReset`, `time`/`timeLog`/`timeEnd`) use the
+`count` and `time` theme and symbol. Their styled output is the native label
+key: keep `prefix`, `theme`, `symbol` and `noColor` unchanged between related
+calls.
+
 **Kind**: global typedef
 **Properties**
 
-| Name      | Type                                                 | Default                                                                                                 | Description                                                                        |
-| --------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| [prefix]  | <code>string</code>                                  | <code>&quot;\&quot;\&quot;&quot;</code>                                                                 | A string to prepend to every log.                                                  |
-| [theme]   | [<code>ConsoleAnsiTheme</code>](#ConsoleAnsiTheme)   |                                                                                                         | Color definition associated to console methods.                                    |
-| [level]   | [<code>ConsoleAnsiLevel</code>](#ConsoleAnsiLevel)   | <code>&quot;log&quot;</code>                                                                            | A minimum log level value. See ConsoleAnsiLevels.                                  |
-| [levels]  | [<code>ConsoleAnsiLevels</code>](#ConsoleAnsiLevels) | <code>{ error: 5, warn: 4, info: 3, log: 2 }</code>                                                     | Numbered priority associated to console methods to match above for level property. |
-| [symbol]  | [<code>ConsoleAnsiSymbol</code>](#ConsoleAnsiSymbol) | <code>{ log: &quot;✔&quot;, info: &quot;ℹ&quot;, warn: &quot;⚠&quot;, error: &quot;✖&quot; }</code> | Unicode symbols to prepend to defined console methods.                             |
-| [noColor] | <code>boolean</code>                                 | <code>false</code>                                                                                      | Disable color ansi sequence.                                                       |
+| Name         | Type                                                 | Default                                                                 | Description                                                                                                                                                                            |
+| ------------ | ---------------------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [prefix]     | <code>string</code>                                  | <code>&quot;\&quot;\&quot;&quot;</code>                                 | A string to prepend to every log. Part of the format string: avoid `%`.                                                                                                                |
+| [theme]      | [<code>ConsoleAnsiTheme</code>](#ConsoleAnsiTheme)   |                                                                         | Color definition associated to console methods, applied to symbol, prefix and first string argument. Merged with defaults.                                                             |
+| [level]      | [<code>ConsoleAnsiLevel</code>](#ConsoleAnsiLevel)   | <code>&quot;debug&quot;</code>                                          | A minimum log level value. See ConsoleAnsiLevels.                                                                                                                                      |
+| [levels]     | [<code>ConsoleAnsiLevels</code>](#ConsoleAnsiLevels) | <code>{ error: 5, warn: 4, info: 3, log: 2, debug: 1, trace: 1 }</code> | Numbered priority associated to console methods to match above for level property. Merged with defaults.                                                                               |
+| [symbol]     | [<code>ConsoleAnsiSymbol</code>](#ConsoleAnsiSymbol) |                                                                         | Unicode symbols to prepend to defined console methods. Merged with defaults. Defaults to a symbol per method, see [source](https://github.com/dmnsgn/console-ansi/blob/main/index.js). |
+| [timestamps] | <code>boolean</code>                                 | <code>false</code>                                                      | Prepend local time to non-labelled methods, styled with `theme.timestamps`.                                                                                                            |
+| [noColor]    | <code>boolean</code>                                 | <code>false</code>                                                      | Disable color.                                                                                                                                                                         |
 
+<a name="ConsoleAnsiThemeAttribute"></a>
+
+## ConsoleAnsiThemeAttribute : <code>number</code> \| <code>string</code>
+
+ANSI code or CSS
+declaration.
+
+**Kind**: global typedef
 <a name="ConsoleAnsiThemeAttributeArray"></a>
 
-## ConsoleAnsiThemeAttributeArray : <code>Array.&lt;number&gt;</code>
+## ConsoleAnsiThemeAttributeArray : [<code>Array.&lt;ConsoleAnsiThemeAttribute&gt;</code>](#ConsoleAnsiThemeAttribute)
 
-Array for ANSI definition [start, end].
+Array
+for ANSI definition [start, end] and optional CSS declaration for
+browsers.
 
 **Kind**: global typedef
 <a name="ConsoleAnsiTheme"></a>
@@ -155,23 +201,45 @@ Theme object consisting of ANSI styles or Array of ANSI styles.
 
 ## ConsoleAnsiLevel : <code>string</code>
 
-Current log level. Can be any console method but levels property only defines log(1)/info(2)/warn(3)/error(4).
+Current log level. Methods missing from
+levels are always shown.
 
 **Kind**: global typedef
 <a name="ConsoleAnsiLevels"></a>
 
 ## ConsoleAnsiLevels : <code>Object.&lt;ConsoleAnsiLevel, number&gt;</code>
 
-Levels object consisting of console method as keys and numbered priority.
+Levels object
+consisting of console method as keys and numbered priority.
 
 **Kind**: global typedef
 <a name="ConsoleAnsiSymbol"></a>
 
 ## ConsoleAnsiSymbol : <code>Object.&lt;string, string&gt;</code>
 
-Map of unicode symbols to be prepended to certain console methods.
+Map of unicode symbols to
+be prepended to certain console methods.
 
 **Kind**: global typedef
+<a name="ConsoleAnsiPalette"></a>
+
+## ConsoleAnsiPalette : <code>Object.&lt;string, string&gt;</code>
+
+Map of color names to
+CSS colors.
+
+**Kind**: global typedef
+<a name="ConsoleAnsiPalettes"></a>
+
+## ConsoleAnsiPalettes : <code>object</code>
+
+**Kind**: global typedef
+**Properties**
+
+| Name  | Type                                                   | Description          |
+| ----- | ------------------------------------------------------ | -------------------- |
+| light | [<code>ConsoleAnsiPalette</code>](#ConsoleAnsiPalette) | Light theme palette. |
+| dark  | [<code>ConsoleAnsiPalette</code>](#ConsoleAnsiPalette) | Dark theme palette.  |
 
 <!-- api-end -->
 

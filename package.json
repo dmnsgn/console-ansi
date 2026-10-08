@@ -1,8 +1,7 @@
 {
   "name": "console-ansi",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Easy console coloring and prefixing via Proxy object with ANSI strings in Node.js and CSS in browsers.",
-  "sideEffects": false,
   "keywords": [
     "console",
     "ansi",
@@ -32,6 +31,7 @@
   ],
   "license": "MIT",
   "author": "Damien Seguin (https://github.com/dmnsgn)",
+  "sideEffects": false,
   "type": "module",
   "exports": {
     ".": {
