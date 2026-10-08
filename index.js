@@ -79,7 +79,7 @@ const getConsole = ({ theme, levels, symbol, ...options } = {}) => {
   return new Proxy(
     {
       prefix: "",
-      level: "log",
+      level: "debug",
       noColor,
       ...options,
       theme: {
@@ -102,7 +102,15 @@ const getConsole = ({ theme, levels, symbol, ...options } = {}) => {
         // table:
         ...theme,
       },
-      levels: { error: 5, warn: 4, info: 3, log: 2, ...levels },
+      levels: {
+        error: 5,
+        warn: 4,
+        info: 3,
+        log: 2,
+        debug: 1,
+        trace: 1,
+        ...levels,
+      },
       symbol: {
         // debug: "◆",
         log: "✔",

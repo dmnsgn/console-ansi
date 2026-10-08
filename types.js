@@ -4,8 +4,8 @@
  * @typedef {object} ConsoleAnsi
  * @property {string} [prefix=""] A string to prepend to every log.
  * @property {ConsoleAnsiTheme} [theme] Color definition associated to console methods. Merged with defaults.
- * @property {ConsoleAnsiLevel} [level="log"] A minimum log level value. See ConsoleAnsiLevels.
- * @property {ConsoleAnsiLevels} [levels={ error: 5, warn: 4, info: 3, log: 2 }] Numbered priority associated to console methods to match above for level property. Merged with defaults.
+ * @property {ConsoleAnsiLevel} [level="debug"] A minimum log level value. See ConsoleAnsiLevels.
+ * @property {ConsoleAnsiLevels} [levels={ error: 5, warn: 4, info: 3, log: 2, debug: 1, trace: 1 }] Numbered priority associated to console methods to match above for level property. Merged with defaults.
  * @property {ConsoleAnsiSymbol} [symbol] Unicode symbols to prepend to defined console methods. Merged with defaults. Defaults to a symbol per method, see [source](https://github.com/dmnsgn/console-ansi/blob/main/index.js).
  * @property {boolean} [noColor=false] Disable color ansi sequence.
  */
@@ -19,7 +19,7 @@
  */
 
 /**
- * @typedef {string} ConsoleAnsiLevel Current log level. Can be any console method but levels property only defines log(1)/info(2)/warn(3)/error(4).
+ * @typedef {string} ConsoleAnsiLevel Current log level. Methods missing from levels are always shown.
  */
 
 /**

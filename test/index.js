@@ -90,9 +90,16 @@ console.level = "error";
 console.log("Test console level log hidden");
 console.info("Test console level info hidden");
 console.warn("Test console level warn hidden");
-console.error("Test console level error. Above log/info/warn not shown.");
-console.debug("Test console level not defined in levels");
+console.debug("Test console level debug hidden");
+console.trace("Test console level trace hidden");
+console.error(
+  "Test console level error. Above debug/trace/log/info/warn not shown.",
+);
+console.count("Test console level not defined in levels");
 console.level = "log";
+console.debug("Test console level debug hidden at log level");
+console.log("Test console level log. Above debug not shown.");
+console.level = "debug";
 
 // Empty prefix and symbol
 separator();
