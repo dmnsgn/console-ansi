@@ -8,8 +8,7 @@ console.noColor = isSafari;
 
 const separator = () => {
   const prefix = console.prefix;
-  console.prefix =
-    "––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––";
+  console.prefix = "–".repeat(80 - 1);
   console.debug();
   console.prefix = prefix;
 };
@@ -32,6 +31,7 @@ console.warn("Test console warn");
 console.error("Test console error");
 console.trace("Test console trace");
 console.debug("Test console debug\non multiple\nlines");
+console.assert(false, { test: "assert" });
 
 // Labelled
 separator();
@@ -43,6 +43,8 @@ console.countReset("Test console count");
 console.count("Test console count");
 
 console.group("Test console group");
+console.groupCollapsed("Test console group collapsed");
+console.groupEnd("Test console group collapsed");
 console.group("Test console group indented");
 console.debug("Test console group indented debug");
 console.groupEnd("Test console group indented");
@@ -53,6 +55,13 @@ separator();
 console.prefix = "[unsupported]";
 console.debug("");
 console.dir({ test: "dir" }, { colors: true });
+if (globalThis.DOMParser) {
+  const xml = new DOMParser().parseFromString(
+    "<note><to>console</to><body>ansi</body></note>",
+    "application/xml",
+  );
+  console.dirxml(xml);
+}
 console.table([
   { test: 0, key: "A" },
   { test: 1, key: "B" },
@@ -102,4 +111,5 @@ console.log("Test change theme log bg red, color black with underline");
 
 // Instantiate
 const logger = getConsole({ prefix: "[instance]" });
+logger.noColor = isSafari;
 logger.log("Test instance");

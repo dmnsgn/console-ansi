@@ -6,8 +6,9 @@ const isNode = typeof process !== "undefined";
 const { env = {}, argv = [] } = isNode ? process : {};
 
 /**
- * Check for the presence of a NO_COLOR environment variable that prevents the addition of ANSI color.
-
+ * Check for the presence of a NO_COLOR environment variable that prevents the
+ * addition of ANSI color.
+ *
  * @private
  * @see [no-color.org]{@link https://no-color.org/}
  */
@@ -22,14 +23,24 @@ const noColor =
  * @param {number} n
  * @returns {string}
  */
-const escape = (n) => `\u001B[${n}m`;
+const escape = (n) => `\u{1B}[${n}m`;
 
 /**
- * Console methods that require special formatting
+ * Console methods that require special formatting, mapped to the method owning
+ * their symbol and theme: the label is the counter/timer key so it must match
+ * across calls.
  *
  * @private
  */
-const labelled = ["time", "timeLog", "timeEnd", "count", "countReset"];
+const labelled = new Map([
+  ["time", "time"],
+  ["timeLog", "time"],
+  ["timeEnd", "time"],
+  ["count", "count"],
+  ["countReset", "count"],
+]);
+
+const getStyleKey = (prop) => labelled.get(prop) ?? prop;
 
 const getConsole = (options) =>
   new Proxy(
@@ -42,14 +53,13 @@ const getConsole = (options) =>
         warn: styles.yellow,
         error: styles.red,
         trace: styles.blue,
+        assert: styles.red,
 
         count: styles.white,
-        countReset: styles.white,
         group: styles.gray,
+        groupCollapsed: styles.gray,
         groupEnd: styles.gray,
         time: styles.cyan,
-        timeLog: styles.cyan,
-        timeEnd: styles.cyan,
 
         // Not supported, they already have some coloring
         // dir: // use second argument { colors: true }
@@ -63,10 +73,17 @@ const getConsole = (options) =>
       },
       level: "log",
       symbol: {
+        // debug: "◆",
         log: "✔",
         info: "ℹ",
         warn: "⚠",
         error: "✖",
+        // trace: "↳",
+        assert: "✘",
+        count: "#",
+        group: "▼",
+        groupCollapsed: "►",
+        time: "◷",
       },
       noColor,
       ...options,
@@ -77,15 +94,16 @@ const getConsole = (options) =>
           ? obj[prop]
           : !obj.levels.hasOwnProperty(prop) || // eslint-disable-line no-prototype-builtins
               (obj.levels[obj.level] || 0) <= (obj.levels[prop] || 0)
-            ? Object.keys(obj.theme).includes(prop)
+            ? Object.keys(obj.theme).includes(getStyleKey(prop))
               ? (...args) => {
-                  const symbolProp = obj.symbol[prop];
+                  const styleKey = getStyleKey(prop);
+                  const symbolProp = obj.symbol[styleKey];
 
                   let themeProp = obj.noColor
                     ? []
-                    : !Array.isArray(obj.theme[prop][0])
-                      ? [obj.theme[prop]]
-                      : obj.theme[prop];
+                    : Array.isArray(obj.theme[styleKey][0])
+                      ? obj.theme[styleKey]
+                      : [obj.theme[styleKey]];
 
                   const attributes = themeProp.reduce(
                     (str, style) => [
@@ -95,18 +113,20 @@ const getConsole = (options) =>
                     ["", ""],
                   );
 
-                  const isLabelled = labelled.includes(prop);
+                  const isLabelled = labelled.has(prop);
+                  const condition = prop === "assert" ? [args.shift()] : [];
 
                   return console[prop](
+                    ...condition,
                     `${attributes[0]}${[
                       symbolProp,
                       obj.prefix,
                       isLabelled && args[0],
                     ]
                       .filter(Boolean)
-                      .join(" ")}`,
+                      .join(" ")}${isLabelled ? attributes[1] : ""}`,
                     ...(args.slice(isLabelled ? 1 : 0) || []),
-                    attributes[1],
+                    ...(isLabelled ? [] : [attributes[1]]),
                   );
                 }
               : console[prop]
@@ -116,7 +136,9 @@ const getConsole = (options) =>
 
 export {
   /**
-   * Get an instance of the Proxy-ed console. Useful if you need different prefixes for instance.
+   * Get an instance of the Proxy-ed console. Useful if you need different
+   * prefixes for instance.
+   *
    * @function
    * @param {import("./types.js").ConsoleAnsi} options
    * @returns {import("./types.js").ConsoleAnsi}
@@ -124,6 +146,7 @@ export {
   getConsole,
   /**
    * Basic ANSI escape codes map
+   *
    * @type {import("./types.js").ConsoleAnsiTheme}
    * @see [Wikipedia ANSI]{@link https://en.wikipedia.org/wiki/ANSI_escape_code#SGR_(Select_Graphic_Rendition)_parameters}
    * @see [Node.js util]{@link https://nodejs.org/api/util.html#util_customizing_util_inspect_colors}

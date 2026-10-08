@@ -1,10 +1,12 @@
 /**
+ * Labelled methods (`count`/`countReset`, `time`/`timeLog`/`timeEnd`) use the `count` and `time` theme and symbol. Their styled output is the native label key: keep `prefix`, `theme`, `symbol` and `noColor` unchanged between related calls.
+ *
  * @typedef {object} ConsoleAnsi
  * @property {string} [prefix=""] A string to prepend to every log.
  * @property {ConsoleAnsiTheme} [theme] Color definition associated to console methods.
  * @property {ConsoleAnsiLevel} [level="log"] A minimum log level value. See ConsoleAnsiLevels.
  * @property {ConsoleAnsiLevels} [levels={ error: 5, warn: 4, info: 3, log: 2 }] Numbered priority associated to console methods to match above for level property.
- * @property {ConsoleAnsiSymbol} [symbol={ log: "✔", info: "ℹ", warn: "⚠", error: "✖" }] Unicode symbols to prepend to defined console methods.
+ * @property {ConsoleAnsiSymbol} [symbol] Unicode symbols to prepend to defined console methods. Defaults to a symbol per method, see [source](https://github.com/dmnsgn/console-ansi/blob/main/index.js).
  * @property {boolean} [noColor=false] Disable color ansi sequence.
  */
 
