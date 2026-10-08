@@ -22,12 +22,10 @@ const noColor =
  * @param {number} n
  * @returns {string}
  */
-const escape = (n) => `\u{1B}[${n}m`;
+const toAnsi = (n) => `\u{1B}[${n}m`;
 
 /**
- * Console methods that require special formatting, mapped to the method owning
- * their symbol and theme: the label is the counter/timer key so it must match
- * across calls.
+ * Labelled methods mapped to the method owning their theme and symbol.
  *
  * @private
  */
@@ -39,10 +37,46 @@ const labelled = new Map([
   ["countReset", "count"],
 ]);
 
-const getStyleKey = (prop) => labelled.get(prop) ?? prop;
+const isEnabled = ({ levels, level }, method) =>
+  !Object.hasOwn(levels, method) ||
+  (levels[level] || 0) <= (levels[method] || 0);
 
-const getConsole = (options) =>
-  new Proxy(
+const getAttributes = ({ theme, noColor }, key) => {
+  if (noColor) return ["", ""];
+
+  const style = theme[key];
+  return (Array.isArray(style[0]) ? style : [style]).reduce(
+    ([open, close], [start, end]) => [
+      `${open}${toAnsi(start)}`,
+      isNode ? `${close}${toAnsi(end)}` : "",
+    ],
+    ["", ""],
+  );
+};
+
+const write = (obj, method, args) => {
+  const key = labelled.get(method) ?? method;
+  if (!Object.hasOwn(obj.theme, key)) return console[method](...args);
+
+  const [open, close] = getAttributes(obj, key);
+  const isLabelled = labelled.has(method);
+  const condition = method === "assert" ? [args.shift()] : [];
+  const head = [obj.symbol[key], obj.prefix, isLabelled && args[0]]
+    .filter(Boolean)
+    .join(" ");
+
+  return console[method](
+    ...condition,
+    `${open}${head}${isLabelled ? close : ""}`,
+    ...args.slice(isLabelled ? 1 : 0),
+    ...(isLabelled ? [] : [close]),
+  );
+};
+
+const getConsole = (options) => {
+  const methods = new Map();
+
+  return new Proxy(
     {
       prefix: "",
       theme: {
@@ -88,50 +122,20 @@ const getConsole = (options) =>
       ...options,
     },
     {
-      get: (obj, prop) =>
-        prop in obj
-          ? obj[prop]
-          : !obj.levels.hasOwnProperty(prop) || // eslint-disable-line no-prototype-builtins
-              (obj.levels[obj.level] || 0) <= (obj.levels[prop] || 0)
-            ? Object.keys(obj.theme).includes(getStyleKey(prop))
-              ? (...args) => {
-                  const styleKey = getStyleKey(prop);
-                  const symbolProp = obj.symbol[styleKey];
+      get(obj, prop) {
+        if (prop in obj) return obj[prop];
+        if (typeof console[prop] !== "function") return console[prop];
 
-                  let themeProp = obj.noColor
-                    ? []
-                    : Array.isArray(obj.theme[styleKey][0])
-                      ? obj.theme[styleKey]
-                      : [obj.theme[styleKey]];
-
-                  const attributes = themeProp.reduce(
-                    (str, style) => [
-                      `${str[0]}${escape(style[0])}`,
-                      `${str[1]}${isNode ? escape(style[1]) : ""}`,
-                    ],
-                    ["", ""],
-                  );
-
-                  const isLabelled = labelled.has(prop);
-                  const condition = prop === "assert" ? [args.shift()] : [];
-
-                  return console[prop](
-                    ...condition,
-                    `${attributes[0]}${[
-                      symbolProp,
-                      obj.prefix,
-                      isLabelled && args[0],
-                    ]
-                      .filter(Boolean)
-                      .join(" ")}${isLabelled ? attributes[1] : ""}`,
-                    ...(args.slice(isLabelled ? 1 : 0) || []),
-                    ...(isLabelled ? [] : [attributes[1]]),
-                  );
-                }
-              : console[prop]
-            : () => {},
+        if (!methods.has(prop)) {
+          methods.set(prop, (...args) =>
+            isEnabled(obj, prop) ? write(obj, prop, args) : undefined,
+          );
+        }
+        return methods.get(prop);
+      },
     },
   );
+};
 
 export {
   /**
