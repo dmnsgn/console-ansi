@@ -69,6 +69,16 @@ console.table([
   { test: 1, key: "B" },
 ]);
 
+// Format specifiers and arguments
+separator();
+console.prefix = "[format]";
+console.log("Test console format %s %d", "string", 1);
+console.log("Test console format extra", "arg", { test: 0 });
+console.log({ test: 0 }, "Test console format first non-string");
+console.assert(false, "Test console format assert %s", "string");
+console.group("Test console format group %s", "string");
+console.groupEnd();
+
 // Falsy and nullish values
 separator();
 console.prefix = "[falsy-nullish]";
@@ -107,7 +117,7 @@ console.level = "debug";
 separator();
 console.prefix = "";
 console.symbol = {};
-console.log({ test: 0, key: "A" }); // will add a space
+console.log({ test: 0, key: "A" });
 
 // Change theme
 separator();

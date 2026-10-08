@@ -61,14 +61,18 @@ const write = (obj, method, args) => {
   const [open, close] = getAttributes(obj, key);
   const isLabelled = labelled.has(method);
   const condition = method === "assert" ? [args.shift()] : [];
-  const label = isLabelled ? `${args.shift() ?? "default"}` : "";
-  const head = [obj.symbol[key], obj.prefix, label].filter(Boolean).join(" ");
+  // Merge into the first string to keep its format specifiers
+  const text = isLabelled
+    ? `${args.shift() ?? "default"}`
+    : typeof args[0] === "string"
+      ? args.shift()
+      : "";
+  const head = [obj.symbol[key], obj.prefix, text].filter(Boolean).join(" ");
 
   return console[method](
     ...condition,
-    `${open}${head}${isLabelled ? close : ""}`,
+    ...(head || isLabelled ? [`${open}${head}${close}`] : []),
     ...args,
-    ...(isLabelled ? [] : [close]),
   );
 };
 
