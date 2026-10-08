@@ -41,6 +41,8 @@ console.count("Test console count");
 console.debug("Test console count reset");
 console.countReset("Test console count");
 console.count("Test console count");
+console.count(0);
+console.count();
 
 console.group("Test console group");
 console.groupCollapsed("Test console group collapsed");

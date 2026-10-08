@@ -61,14 +61,13 @@ const write = (obj, method, args) => {
   const [open, close] = getAttributes(obj, key);
   const isLabelled = labelled.has(method);
   const condition = method === "assert" ? [args.shift()] : [];
-  const head = [obj.symbol[key], obj.prefix, isLabelled && args[0]]
-    .filter(Boolean)
-    .join(" ");
+  const label = isLabelled ? `${args.shift() ?? "default"}` : "";
+  const head = [obj.symbol[key], obj.prefix, label].filter(Boolean).join(" ");
 
   return console[method](
     ...condition,
     `${open}${head}${isLabelled ? close : ""}`,
-    ...args.slice(isLabelled ? 1 : 0),
+    ...args,
     ...(isLabelled ? [] : [close]),
   );
 };
