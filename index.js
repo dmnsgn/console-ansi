@@ -1,12 +1,15 @@
 /** @module console-ansi */
 
-import styles from "./styles.js";
+import { palettes, styles } from "./styles.js";
 
 const isNode = typeof globalThis.process?.versions?.node === "string";
 const { env = {}, argv = [] } = isNode ? process : {};
 
+const supportsAnsi =
+  isNode || /\bChrom(e|ium)\//.test(globalThis.navigator?.userAgent);
+
 /**
- * Disable ANSI color when NO_COLOR is set and non-empty.
+ * Disable color when NO_COLOR is set and non-empty.
  *
  * @private
  * @see [no-color.org]{@link https://no-color.org/}
@@ -42,28 +45,40 @@ const isEnabled = ({ levels, level }, method) =>
   (levels[level] || 0) <= (levels[method] || 0);
 
 const getAttributes = ({ theme, noColor }, key) => {
-  if (noColor) return ["", ""];
+  if (noColor) return [];
 
   const style = theme[key];
-  return (Array.isArray(style[0]) ? style : [style]).reduce(
-    ([open, close], [start, end]) => [
-      `${open}${toAnsi(start)}`,
-      isNode ? `${close}${toAnsi(end)}` : "",
-    ],
-    ["", ""],
-  );
+  return Array.isArray(style[0]) ? style : [style];
+};
+
+const format = (head, attributes, isLabelled) => {
+  if (!attributes.length) return [head];
+
+  if (supportsAnsi) {
+    const [open, close] = [0, 1].map((i) =>
+      attributes.map((attribute) => toAnsi(attribute[i])).join(""),
+    );
+    return [`${open}${head}${isNode ? close : ""}`];
+  }
+
+  // %c would be part of the native label key
+  if (isLabelled) return [head];
+
+  const css = attributes
+    .map(([, , declaration]) => declaration)
+    .filter(Boolean);
+  return [`%c${head}`, css.join("; ")];
 };
 
 const write = (obj, method, args) => {
   const key = labelled.get(method) ?? method;
   if (!Object.hasOwn(obj.theme, key)) return console[method](...args);
 
-  const [open, close] = getAttributes(obj, key);
   const isLabelled = labelled.has(method);
   const condition = method === "assert" ? [args.shift()] : [];
   // Merge into the first string to keep its format specifiers
   const text = isLabelled
-    ? `${args.shift() ?? "default"}`
+    ? String(args.shift() ?? "default")
     : typeof args[0] === "string"
       ? args.shift()
       : "";
@@ -71,7 +86,9 @@ const write = (obj, method, args) => {
 
   return console[method](
     ...condition,
-    ...(head || isLabelled ? [`${open}${head}${close}`] : []),
+    ...(head || isLabelled
+      ? format(head, getAttributes(obj, key), isLabelled)
+      : []),
     ...args,
   );
 };
@@ -163,10 +180,18 @@ export {
    * @see [Node.js util]{@link https://nodejs.org/api/util.html#util_customizing_util_inspect_colors}
    */
   styles,
+  /**
+   * Chrome DevTools ANSI color palettes used for CSS styling in browsers
+   *
+   * @type {import("./types.js").ConsoleAnsiPalettes}
+   * @see [Chrome DevTools]{@link https://developer.chrome.com/docs/devtools/console/format-style}
+   */
+  palettes,
 };
 
 /**
- * Export a Proxy object to automatically style the console with ANSI strings.
+ * Export a Proxy object to automatically style the console with ANSI strings in
+ * Node.js and CSS in browsers.
  *
  * @type {import("./types.js").ConsoleAnsi}
  */

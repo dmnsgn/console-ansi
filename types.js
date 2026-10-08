@@ -7,11 +7,11 @@
  * @property {ConsoleAnsiLevel} [level="debug"] A minimum log level value. See ConsoleAnsiLevels.
  * @property {ConsoleAnsiLevels} [levels={ error: 5, warn: 4, info: 3, log: 2, debug: 1, trace: 1 }] Numbered priority associated to console methods to match above for level property. Merged with defaults.
  * @property {ConsoleAnsiSymbol} [symbol] Unicode symbols to prepend to defined console methods. Merged with defaults. Defaults to a symbol per method, see [source](https://github.com/dmnsgn/console-ansi/blob/main/index.js).
- * @property {boolean} [noColor=false] Disable color ansi sequence.
+ * @property {boolean} [noColor=false] Disable color.
  */
 
 /**
- * @typedef {number[]} ConsoleAnsiThemeAttributeArray Array for ANSI definition [start, end].
+ * @typedef {Array.<(number|string)>} ConsoleAnsiThemeAttributeArray Array for ANSI definition [start, end] and optional CSS declaration for browsers.
  */
 
 /**
@@ -28,6 +28,16 @@
 
 /**
  * @typedef {Object.<string, string>} ConsoleAnsiSymbol Map of unicode symbols to be prepended to certain console methods.
+ */
+
+/**
+ * @typedef {Object.<string, string>} ConsoleAnsiPalette Map of color names to CSS colors.
+ */
+
+/**
+ * @typedef {object} ConsoleAnsiPalettes
+ * @property {ConsoleAnsiPalette} light Light theme palette.
+ * @property {ConsoleAnsiPalette} dark Dark theme palette.
  */
 
 export {};

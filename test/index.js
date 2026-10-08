@@ -1,11 +1,5 @@
 import console, { styles, getConsole } from "../index.js";
 
-const isSafari =
-  /^((?!chrome|android).)*safari/i.test(globalThis.navigator?.userAgent) ===
-  true;
-
-console.noColor = isSafari;
-
 const separator = () => {
   const prefix = console.prefix;
   console.prefix = "–".repeat(80 - 1);
@@ -130,5 +124,4 @@ console.log("Test change theme log bg red, color black with underline");
 
 // Instantiate
 const logger = getConsole({ prefix: "[instance]" });
-logger.noColor = isSafari;
 logger.log("Test instance");

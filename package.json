@@ -1,7 +1,7 @@
 {
   "name": "console-ansi",
   "version": "2.0.1",
-  "description": "Easy console coloring and prefixing via Proxy object with ANSI strings. Works in Node.js and in browsers that support ANSI strings.",
+  "description": "Easy console coloring and prefixing via Proxy object with ANSI strings in Node.js and CSS in browsers.",
   "sideEffects": false,
   "keywords": [
     "console",
