@@ -73,6 +73,15 @@ console.assert(false, "Test console format assert %s", "string");
 console.group("Test console format group %s", "string");
 console.groupEnd();
 
+// Timestamps
+separator();
+console.prefix = "[timestamps]";
+console.timestamps = true;
+console.log("Test console timestamps log");
+console.log({ test: 0 });
+console.count("Test console timestamps count");
+console.timestamps = false;
+
 // Falsy and nullish values
 separator();
 console.prefix = "[falsy-nullish]";

@@ -40,6 +40,14 @@ const labelled = new Map([
   ["countReset", "count"],
 ]);
 
+const timeFormat = new Intl.DateTimeFormat(undefined, {
+  hour: "2-digit",
+  minute: "2-digit",
+  second: "2-digit",
+  fractionalSecondDigits: 3,
+  hourCycle: "h23",
+});
+
 const isEnabled = ({ levels, level }, method) =>
   !Object.hasOwn(levels, method) ||
   (levels[level] || 0) <= (levels[method] || 0);
@@ -51,23 +59,33 @@ const getAttributes = ({ theme, noColor }, key) => {
   return Array.isArray(style[0]) ? style : [style];
 };
 
-const format = (head, attributes, isLabelled) => {
-  if (!attributes.length) return [head];
-
+const format = (segments, isLabelled) => {
   if (supportsAnsi) {
-    const [open, close] = [0, 1].map((i) =>
-      attributes.map((attribute) => toAnsi(attribute[i])).join(""),
-    );
-    return [`${open}${head}${isNode ? close : ""}`];
+    return [
+      segments
+        .map(([text, attributes], i) => {
+          const [open, close] = [0, 1].map((j) =>
+            attributes.map((attribute) => toAnsi(attribute[j])).join(""),
+          );
+          const isClosed = isNode || i < segments.length - 1;
+          return `${open}${text}${isClosed ? close : ""}`;
+        })
+        .join(" "),
+    ];
   }
 
-  // %c would be part of the native label key
-  if (isLabelled) return [head];
+  const texts = segments.map(([text]) => text);
+  const css = segments.map(([, attributes]) =>
+    attributes
+      .map(([, , declaration]) => declaration)
+      .filter(Boolean)
+      .join("; "),
+  );
 
-  const css = attributes
-    .map(([, , declaration]) => declaration)
-    .filter(Boolean);
-  return [`%c${head}`, css.join("; ")];
+  // %c would be part of the native label key
+  if (isLabelled || !css.some(Boolean)) return [texts.join(" ")];
+
+  return [texts.map((text) => `%c${text}`).join(" "), ...css];
 };
 
 const write = (obj, method, args) => {
@@ -84,11 +102,15 @@ const write = (obj, method, args) => {
       : "";
   const head = [obj.symbol[key], obj.prefix, text].filter(Boolean).join(" ");
 
+  const segments = [];
+  if (obj.timestamps && !isLabelled) {
+    segments.push([timeFormat.format(), getAttributes(obj, "timestamps")]);
+  }
+  if (head || isLabelled) segments.push([head, getAttributes(obj, key)]);
+
   return console[method](
     ...condition,
-    ...(head || isLabelled
-      ? format(head, getAttributes(obj, key), isLabelled)
-      : []),
+    ...(segments.length ? format(segments, isLabelled) : []),
     ...args,
   );
 };
@@ -100,6 +122,7 @@ const getConsole = ({ theme, levels, symbol, ...options } = {}) => {
     {
       prefix: "",
       level: "debug",
+      timestamps: false,
       noColor,
       ...options,
       theme: {
@@ -116,6 +139,8 @@ const getConsole = ({ theme, levels, symbol, ...options } = {}) => {
         groupCollapsed: styles.gray,
         groupEnd: styles.gray,
         time: styles.cyan,
+
+        timestamps: styles.dim,
 
         // Not supported, they already have some coloring
         // dir: // use second argument { colors: true }
