@@ -83,9 +83,9 @@ const format = (segments, isLabelled) => {
   );
 
   // %c would be part of the native label key
-  if (isLabelled || !css.some(Boolean)) return [texts.join(" ")];
-
-  return [texts.map((text) => `%c${text}`).join(" "), ...css];
+  return isLabelled || !css.some(Boolean)
+    ? [texts.join(" ")]
+    : [texts.map((text) => `%c${text}`).join(" "), ...css];
 };
 
 const write = (obj, method, args) => {

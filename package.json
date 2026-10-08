@@ -7,9 +7,11 @@
     "console",
     "ansi",
     "colors",
+    "css",
     "chalk",
     "proxy",
     "theme",
+    "timestamps",
     "prefix"
   ],
   "homepage": "https://github.com/dmnsgn/console-ansi",
